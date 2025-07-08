@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Beispielseite</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #0077cc;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .message {
+      margin-top: 20px;
+      color: red;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="email" placeholder="E-Mail-Adresse" required><br>
+      <input type="password" placeholder="Passwort" required><br>
+      <button type="submit">Einloggen</button>
+    </form>
+    <div class="message" id="messageBox"></div>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('messageBox').innerText =
+        "Dies ist eine simulierte Phishing-Seite. Keine Daten wurden gespeichert.";
+    });
+  </script>
+  
+<script>
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const email = e.target.querySelector('input[type="email"]').value;
+    const password = e.target.querySelector('input[type="password"]').value;
+
+    // 👇 Logge die Daten in die Entwicklerkonsole
+    console.log("⚠️ [SIMULATION] Eingegebene E-Mail:", email);
+    console.log("⚠️ [SIMULATION] Eingegebenes Passwort:", password);
+
+    // Zeige Hinweis auf der Seite
+    document.getElementById('messageBox').innerText =
+      "Dies ist eine simulierte Phishing-Seite. Die Daten wurden NICHT gesendet oder gespeichert.";
+  });
+</script>
+
+</body>
+</html>
